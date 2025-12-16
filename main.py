@@ -16,85 +16,78 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    /* --- FONTS & BASICS --- */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-    
+
+    /* --- GLOBAL RESET --- */
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
+        color: #150d2e;
     }
 
-    /* --- COLOR VARIABLES (THEMING) --- */
-    :root {
-        /* Default Light Theme (Matches "Light Theme" Screenshot) */
-        --bg-color: #fff1e6;        /* The soft Beige background */
-        --card-bg: #ffffff;         /* White cards */
-        --sidebar-bg: #f8e8e7;      /* Slightly darker beige for sidebar */
-        --text-color: #150d2e;      /* Dark Navy text */
-        --accent-color: #b79ced;    /* The Mauve Button */
-        --border-color: #efd9ce;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            /* Dark Theme Overrides (Matches "Dark Theme" Screenshot) */
-            --bg-color: #150d2e;    /* Deep Navy Background */
-            --card-bg: #221a3e;     /* Slightly lighter navy for cards */
-            --sidebar-bg: #0f0920;  /* Darker sidebar */
-            --text-color: #ffffff;  /* White text */
-            --accent-color: #b79ced; /* Mauve stays the same */
-            --border-color: #2b2442;
-        }
-    }
-
-    /* --- APPLYING TO STREAMLIT ELEMENTS --- */
-    
-    /* Main Background */
+    /* --- BACKGROUNDS (Targeting ALL Streamlit containers) --- */
     .stApp {
-        background-color: var(--bg-color);
-        color: var(--text-color);
+        background-color: #fff1e6 !important;
     }
 
-    /* Sidebar */
+    /* The main content area */
+    .main .block-container {
+        background-color: #fff1e6 !important;
+        padding-top: 2rem !important; /* Reduce top padding to hide header gap */
+    }
+
+    /* THE HEADER (The pesky top bar) */
+    header, header[data-testid="stHeader"], .st-emotion-cache-12fmw14 {
+        background-color: #fff1e6 !important;
+        z-index: 1 !important;
+    }
+
+    /* HIDE HAMBURGER MENU & FOOTER */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    .stDeployButton {display:none;} /* Hides the "Deploy" button if visible */
+
+    /* --- SIDEBAR --- */
     section[data-testid="stSidebar"] {
-        background-color: var(--sidebar-bg);
+        background-color: #f8e8e7 !important;
+        border-right: 1px solid #efd9ce;
     }
 
-    /* Headers */
-    h1, h2, h3 {
-        color: var(--text-color) !important;
+    /* Remove gradient on sidebar top */
+    section[data-testid="stSidebar"] > div {
+        background-color: #f8e8e7 !important;
     }
 
-    /* Inputs & Text Areas */
-    .stTextInput input, .stSelectbox div[data-baseweb="select"] {
-        background-color: var(--card-bg) !important;
-        color: var(--text-color) !important;
-        border: 1px solid var(--border-color) !important;
+    /* --- WIDGETS (Inputs, Tables, etc.) --- */
+    .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"], div[data-testid="stDataFrame"] {
+        background-color: #ffffff !important;
+        color: #150d2e !important;
+        border: 1px solid #e0d2f8 !important;
         border-radius: 8px;
     }
 
-    /* Dataframes (The Tables) */
-    div[data-testid="stDataFrame"] {
-        background-color: var(--card-bg);
-        border-radius: 10px;
-        padding: 10px;
-        border: 1px solid var(--border-color);
+    /* HEADERS & LABELS */
+    h1, h2, h3, h4, h5, p, label, .stMarkdown {
+        color: #150d2e !important;
     }
 
-    /* Buttons (The Mauve Accent) */
+    /* BUTTONS */
     div.stButton > button {
-        background-color: var(--accent-color) !important;
-        color: #150d2e !important; /* Always dark text on mauve button */
-        border-radius: 8px;
+        background-color: #b79ced !important;
+        color: #150d2e !important;
         border: none;
+        border-radius: 8px;
         font-weight: 600;
-        padding: 0.5rem 1rem;
-        transition: all 0.3s ease;
+        transition: opacity 0.2s;
     }
     div.stButton > button:hover {
         opacity: 0.9;
-        box-shadow: 0 4px 12px rgba(183, 156, 237, 0.4);
+        border: 1px solid #150d2e !important;
     }
 
+    /* SPINNER TEXT */
+    .stSpinner > div > div {
+        border-top-color: #b79ced !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
