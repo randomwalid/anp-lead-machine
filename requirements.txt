@@ -3,3 +3,4 @@ pandas
 apify-client
 gspread
 oauth2client
+google-generativeai
